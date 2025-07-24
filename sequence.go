@@ -33,7 +33,6 @@ func (s *Sequence) Update() error {
 	if !s.onStartCalled {
 		s.OnStart()
 		s.OnArrival()
-		s.onStartCalled = true
 	}
 
 	return s.current.Update()
