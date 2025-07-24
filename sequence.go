@@ -65,7 +65,7 @@ func (s *Sequence) SwitchWithTransition(next ebiten.Game, transition Transition)
 	p := newTransitionUpdater(s, next, transition)
 	s.transitionUpdater = p
 	transition.Reset()
-	callIfImpl(s.current, func(o OnDeparturer) { o.OnDeparture() })
+	s.OnDeparture()
 	return true
 }
 
@@ -76,15 +76,15 @@ func (s *Sequence) inTransition() bool {
 
 // switchScenes switches scenes.
 func (s *Sequence) switchScenes(next ebiten.Game) {
-	callIfImpl(s.current, func(o OnEnder) { o.OnEnd() })
+	s.OnEnd()
 	s.current = next
-	callIfImpl(s.current, func(o OnStarter) { o.OnStart() })
+	s.OnStart()
 }
 
 // endTransition is called when the Transition completed.
 func (s *Sequence) endTransition() {
 	s.transitionUpdater = nil
-	callIfImpl(s.current, func(o OnArrivaler) { o.OnArrival() })
+	s.OnArrival()
 }
 
 // DrawFinalScreen is ebiten.FinalScreenDrawer implementation.
