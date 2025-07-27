@@ -31,7 +31,7 @@ func (s *Sequence) Update() error {
 	}
 
 	if !s.onStartCalled {
-		s.OnStart()
+		s.OnStart() // s.onStartCalled is set to true in s.OnStart()
 		s.OnArrival()
 	}
 
